@@ -22,7 +22,7 @@ android {
         mobile {
             dimension "mode"
             versionCode 9
-            versionName "1.0.9"
+            versionName "20230329#2"
         }
         java {
             dimension = "api"
@@ -55,6 +55,11 @@ android {
             outputFileName = "${variant.productFlavors[0].name}-${variant.productFlavors[1].name}.apk"
         }
     }
+
+    lint {
+        abortOnError false
+        disable 'UnsafeOptInUsageError'
+    }
 }
 
 dependencies {
@@ -65,8 +70,18 @@ dependencies {
     implementation project(':forcetech')
     implementation project(':ijkplayer')
     pythonImplementation project(':pyramid')
+    implementation 'androidx.media3:media3-database:1.0.0'
+    implementation 'androidx.media3:media3-datasource:1.0.0'
+    implementation 'androidx.media3:media3-datasource-rtmp:1.0.0'
+    implementation 'androidx.media3:media3-exoplayer:1.0.0'
+    implementation 'androidx.media3:media3-exoplayer-dash:1.0.0'
+    implementation 'androidx.media3:media3-exoplayer-hls:1.0.0'
+    implementation 'androidx.media3:media3-exoplayer-rtsp:1.0.0'
+    implementation 'androidx.media3:media3-exoplayer-smoothstreaming:1.0.0'
+    implementation 'androidx.media3:media3-extractor:1.0.0'
+    implementation 'androidx.media3:media3-session:1.0.0'
+    implementation 'androidx.media3:media3-ui:1.0.0'
     implementation 'androidx.appcompat:appcompat:1.6.1'
-    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.5.1'
     implementation 'androidx.preference:preference:1.2.0'
     implementation 'androidx.room:room-runtime:2.5.1'
