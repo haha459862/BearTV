@@ -33,6 +33,8 @@ import androidx.media3.extractor.ts.TsExtractor;
 import androidx.media3.ui.CaptionStyleCompat;
 
 import com.fongmi.android.tv.App;
+import com.fongmi.android.tv.api.ApiConfig;
+import com.fongmi.android.tv.bean.Rule;
 import com.fongmi.android.tv.bean.Result;
 import com.fongmi.android.tv.bean.Sub;
 import com.fongmi.android.tv.utils.FileUtil;
@@ -96,6 +98,12 @@ public class ExoUtil {
         if (errorCode == PlaybackException.ERROR_CODE_PARSING_CONTAINER_UNSUPPORTED) builder.setMimeType(MimeTypes.APPLICATION_M3U8);
         if (subs.size() > 0) builder.setSubtitleConfigurations(getSubtitles(subs));
         return builder.build();
+    }
+
+    private static List<String> getAdsRegex(Uri uri) {
+        if (uri.getHost() != null) for (Rule rule : ApiConfig.get().getRules()) for (String host : rule.getHosts()) if (uri.getHost().contains(host)) return rule.getRegex();
+        for (Rule rule : ApiConfig.get().getRules()) for (String host : rule.getHosts()) if (host.equals("*")) return rule.getRegex();
+        return Collections.emptyList();
     }
 
     private static List<MediaItem.SubtitleConfiguration> getSubtitles(List<Sub> subs) {
